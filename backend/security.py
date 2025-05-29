@@ -3,13 +3,18 @@ from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException
 import bcrypt
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
 
 
 class SecurityConfig:
-    SECRET_KEY = "SuperSecretKey"
-    ALGORITHM = "HS256"
-    ISSUER = "http://127.0.0.1:5000"
-    AUDIENCE = "FastAPI"
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    ALGORITHM = os.getenv('ALGORITHM')
+    ISSUER = os.getenv('ISSUER')
+    AUDIENCE = os.getenv('AUDIENCE')
     oauth2Scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 class SecurityManager:

@@ -1,4 +1,10 @@
 from housing_prices_dashboard.main import prepare_data
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
+data_path = os.getenv('DATA_PATH')
 
 def map_dummy_variable(dummy_value: str) -> list[int]:
     categories = [
@@ -13,4 +19,4 @@ def map_dummy_variable(dummy_value: str) -> list[int]:
 
 
 if __name__ == "__main__":
-    print(prepare_data(r'C:\Users\richard.macus\Desktop\housing_prices_app\housing_prices_dashboard\housing.csv')[0].columns)
+    print(prepare_data(data_path)[0].columns)

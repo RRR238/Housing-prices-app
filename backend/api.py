@@ -13,13 +13,21 @@ from ml_utils import map_dummy_variable
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+from dotenv import load_dotenv
+import os
 
+
+load_dotenv()
+model_path = os.getenv('MODEL_PATH')
+host = os.getenv('HOST')
+port = int(os.getenv('PORT'))
 
 app =FastAPI()
 limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-mlModel = load_model(r'C:\Users\richard.macus\Desktop\housing_prices_app\housing_prices_dashboard\model.joblib')
+app.add_exception_handler(RateLimitExceeded,
+                          _rate_limit_exceeded_handler)
+mlModel = load_model(model_path)
 
 
 @app.post("/registration")
@@ -28,12 +36,13 @@ def Registration(user: UserModel,
 
     userRepo = UserRepository(dbConnection)
     existingUser = userRepo.GetUserByName(user.username)
+    securityManager = SecurityManager()
 
     if existingUser is not None:
         raise HTTPException(status_code=409,
                             detail="Username already exists")
-
-    hashedPassword = SecurityManager.HashPassword(user.password)
+    print(user.password)
+    hashedPassword = securityManager.HashPassword(user.password)
     newUser = User(username = user.username,
                    password = hashedPassword)
     addedUser = userRepo.CreateUser(newUser)
@@ -91,4 +100,5 @@ def Predict(request: Request,
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=5000)
+    uvicorn.run(app, host=host,
+                port=port)
