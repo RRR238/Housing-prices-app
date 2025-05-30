@@ -23,11 +23,14 @@ jobs:
     - name: Run container
       run: docker run -d -p 5000:5000 --name my-app my-backend-app
 
+    - name: Check container status
+      run: docker ps -a
+
     - name: Check container logs
-      run: docker logs my-app
+      run: docker logs --no-log-prefix my-app
 
     - name: Wait for app to start
-      run: sleep 5
+      run: sleep 20
 
     - name: Install curl and jq
       run: sudo apt-get update && sudo apt-get install -y curl jq
