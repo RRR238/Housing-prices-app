@@ -29,7 +29,7 @@ ENV MODEL_PATH=/app/housing_prices_dashboard/model.joblib \
     AUDIENCE=FastAPI
 
 # Add backend and dashboard folders to PYTHONPATH
-ENV PYTHONPATH=/app/backend:/app/housing_prices_dashboard
+ENV PYTHONPATH=/app
 
 # Expose app port
 EXPOSE 5000
