@@ -20,7 +20,7 @@ COPY housing_prices_dashboard/main.py ./housing_prices_dashboard/main.py
 
 # Set environment variables
 ENV MODEL_PATH=/app/housing_prices_dashboard/model.joblib \
-    HOST=127.0.0.1 \
+    HOST=0.0.0.0 \
     PORT=5000 \
     DATABASE_URL=sqlite:///./users.db \
     DATA_PATH=/app/housing_prices_dashboard/housing.csv \
