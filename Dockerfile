@@ -21,7 +21,7 @@ COPY housing_prices_dashboard ./housing_prices_dashboard
 ENV MODEL_PATH=/app/housing_prices_dashboard/model.joblib \
     HOST=0.0.0.0 \
     PORT=5000 \
-    DATABASE_URL=sqlite:///./users.db \
+    DATABASE_URL=sqlite:///./backend/users.db \
     DATA_PATH=/app/housing_prices_dashboard/housing.csv \
     SECRET_KEY=SuperSecretKey \
     ALGORITHM=HS256 \
