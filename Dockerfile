@@ -15,9 +15,7 @@ RUN pip install --no-cache-dir -r backend_requirements.txt -r dashboard_requirem
 COPY backend ./backend
 
 # Copy necessary dashboard files
-COPY housing_prices_dashboard/model.joblib ./housing_prices_dashboard/model.joblib
-COPY housing_prices_dashboard/main.py ./housing_prices_dashboard/main.py
-COPY housing_prices_dashboard/__init__.py ./housing_prices_dashboard/__init__.py
+COPY housing_prices_dashboard ./housing_prices_dashboard
 
 # Set environment variables
 ENV MODEL_PATH=/app/housing_prices_dashboard/model.joblib \
